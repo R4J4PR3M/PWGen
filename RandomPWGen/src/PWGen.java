@@ -37,6 +37,25 @@ public class PWGen {
 			special = false;
 		}
 		
+		if (numbers == true && special == false){
+			
+			limitMod= limit%3;
+			limit/=3;
+		} else if (numbers==false && special==false) {
+			
+			limitMod= limit%4;
+			limit/=4;
+		} else if (numbers==true && special == true){
+			
+			limitMod=limit%4;
+			limit/=4;
+		} else if (numbers==false && special == true){
+			
+			limitMod=limit%3;
+			limit/=3;
+		}
+		 
+		
 		String password="";
 		String specialCharacters= "!@#$%&*?/";
 		Random rand = new Random();
@@ -50,18 +69,12 @@ public class PWGen {
 			
 			if (numbers == true && special == false){
 				
-				limitMod= limit%3;
-				limit/=3;
-				
 				password+=rand.nextInt(9);
 				password+=abcU.charAt(alphabetVariable);
 				alphabetVariable = rand.nextInt(26);
 				password+=abcL.charAt(alphabetVariable);
 				
 			} else if (numbers==false && special==false) {
-				
-				limitMod= limit%4;
-				limit/=4;
 				
 				password+=abcU.charAt(alphabetVariable);
 				alphabetVariable = rand.nextInt(26);
@@ -73,9 +86,6 @@ public class PWGen {
 				
 			} else if (numbers==true && special == true){
 				
-				limitMod=limit%4;
-				limit/=4;
-				
 				password+=rand.nextInt(9);
 				password+=abcU.charAt(alphabetVariable);
 				alphabetVariable = rand.nextInt(26);
@@ -84,9 +94,6 @@ public class PWGen {
 				password+=specialCharacters.charAt(spclChar);
 			} else if (numbers==false && special == true){
 				
-				limitMod=limit%3;
-				limit/=3;
-				
 				password+=abcU.charAt(alphabetVariable);
 				alphabetVariable = rand.nextInt(26);
 				password+=abcL.charAt(alphabetVariable);
@@ -94,8 +101,6 @@ public class PWGen {
 				password+=specialCharacters.charAt(spclChar);
 			}
 			
-			
-
 		}
 		
 		for (int i = 0; i<limitMod;i++){
