@@ -7,13 +7,13 @@ public class PWGen {
 		boolean runProgram = true;
 		
 		while (runProgram == true){
-		
+		boolean special = true;
 		boolean numbers= true;
 		
 		Scanner userKeyboard = new Scanner(System.in);
 		System.out.print("Please enter the amount of characters you want\t \t");
 		int limit = userKeyboard.nextInt();
-		int limitMod;
+		int limitMod = 0;
 		
 		System.out.print("Do you want numbers?\t \t \t \t \t");
 		String userResponse= userKeyboard.nextLine();
@@ -27,15 +27,18 @@ public class PWGen {
 		}
 		
 		
-		if (numbers == true){
-			limitMod= limit%3;
-			limit/=3;
+		System.out.print("Do you want special characters?\t \t \t \t" );
+		userResponse= userKeyboard.nextLine();
+		
+		
+		if (userResponse.substring(0 , 1).equalsIgnoreCase("y")){
+			special = true;
 		} else {
-			limitMod= limit%4;
-			limit/=4;
+			special = false;
 		}
 		
 		String password="";
+		String specialCharacters= "!@#$%&*?/";
 		Random rand = new Random();
 		
 		String abcU = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -43,21 +46,23 @@ public class PWGen {
 		
 		for (int i = 0; i < limit; i++){
 			int alphabetVariable = rand.nextInt(26);
+			int spclChar = rand.nextInt(specialCharacters.length());
 			
-			
-			
-			if (numbers == true){
+			if (numbers == true && special == false){
 				
-				if (i%5 == 0){
-				password+="-";
-			}
+				limitMod= limit%3;
+				limit/=3;
 				
 				password+=rand.nextInt(9);
 				password+=abcU.charAt(alphabetVariable);
 				alphabetVariable = rand.nextInt(26);
 				password+=abcL.charAt(alphabetVariable);
 				
-			} else {
+			} else if (numbers==false && special==false) {
+				
+				limitMod= limit%4;
+				limit/=4;
+				
 				password+=abcU.charAt(alphabetVariable);
 				alphabetVariable = rand.nextInt(26);
 				password+=abcL.charAt(alphabetVariable);
@@ -65,7 +70,31 @@ public class PWGen {
 				password+=abcL.charAt(alphabetVariable);
 				alphabetVariable = rand.nextInt(26);
 				password+=abcU.charAt(alphabetVariable);
+				
+			} else if (numbers==true && special == true){
+				
+				limitMod=limit%4;
+				limit/=4;
+				
+				password+=rand.nextInt(9);
+				password+=abcU.charAt(alphabetVariable);
+				alphabetVariable = rand.nextInt(26);
+				password+=abcL.charAt(alphabetVariable);
+				spclChar= rand.nextInt(specialCharacters.length());
+				password+=specialCharacters.charAt(spclChar);
+			} else if (numbers==false && special == true){
+				
+				limitMod=limit%3;
+				limit/=3;
+				
+				password+=abcU.charAt(alphabetVariable);
+				alphabetVariable = rand.nextInt(26);
+				password+=abcL.charAt(alphabetVariable);
+				spclChar= rand.nextInt(specialCharacters.length());
+				password+=specialCharacters.charAt(spclChar);
 			}
+			
+			
 
 		}
 		
